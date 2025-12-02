@@ -1,13 +1,14 @@
 #include <stdlib.h>
+#include <stdio.h>
 
-typedef struct {
+typedef struct node_t {
     int value;
     struct node_t * left;
     struct node_t * right;
 } node_t;
 
 node_t * search(node_t * node, int toFind) {
-    if (node == NULL | toFind==(*node).value) {
+    if (node == NULL | toFind == (*node).value) {
         return node;
     }
     if (toFind < (*node).value) {
@@ -16,8 +17,6 @@ node_t * search(node_t * node, int toFind) {
     else {
         return search((*node).right, toFind);
     }
-
-    // do as iterative?
 }
 
 node_t * createTree(int firstElem) {
@@ -60,4 +59,18 @@ void insert(node_t * node, int elem) {
 
 void delete(node_t * node, int elem) {
 
+}
+
+int main() {
+    node_t * head_pointer = createTree(5);
+    printf("%d\n", (*head_pointer).value);
+    insert(head_pointer, 3);
+    insert(head_pointer, 4);
+    insert(head_pointer, 2);
+    insert(head_pointer, 1);
+    insert(head_pointer, 7);
+    insert(head_pointer, 8);
+    insert(head_pointer, 6);
+    node_t * r_child = head_pointer->right;
+    printf("%d\n", r_child->right->value);
 }
