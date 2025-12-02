@@ -1,26 +1,28 @@
-struct node_t{
+#include <stdlib.h>
+
+typedef struct {
     int value;
     struct node_t * left;
     struct node_t * right;
-};
+} node_t;
 
 node_t * search(node_t * node, int toFind) {
-    if (node==NULL | toFind==node.value) {
+    if (node == NULL | toFind==(*node).value) {
         return node;
     }
-    if toFind < node.value {
-        return search(node.left, toFind);
+    if (toFind < (*node).value) {
+        return search((*node).left, toFind);
     }
     else {
-        return search(node.right, toFind);
+        return search((*node).right, toFind);
     }
 
     // do as iterative?
 }
 
 node_t * createTree(int firstElem) {
-    struct node_t node = {firstElem, NULL, NULL};
-    struct node_t * p = malloc(sizeof(struct node_t));
+    node_t node = {firstElem, NULL, NULL};
+    node_t * p = malloc(sizeof(node_t));
     if (p==NULL) {
         return NULL;
     }
@@ -35,24 +37,24 @@ void destroyTree(node_t * node) {
 }
 
 void insert(node_t * node, int elem) {
-    parent_node = NULL;
+    node_t * parent_node = NULL;
     while (node != NULL) {
         parent_node = node;
-        if elem < node.value {
-            node = node.left;
+        if (elem < (*node).value) {
+            node = (*node).left;
         }
         else {
-            node = node.right;
+            node = (*node).right;
         }
     }
     if (parent_node == NULL) {
         createTree(elem);
     }
-    else if (elem < parent_node.value) {
-        parent_node.left = createTree(elem);
+    else if (elem < (*parent_node).value) {
+        (*parent_node).left = createTree(elem);
     }
-    else (elem > parent_node.value) {
-        parent_node.right = createTree(elem);
+    else {
+        (*parent_node).right = createTree(elem);
     }
 }
 
