@@ -9,7 +9,15 @@ node_t * search(node_t * node, int toFind) {
 }
 
 node_t * createTree(int firstElem) {
-
+    struct node_t node = {firstElem, NULL, NULL};
+    struct node_t * p = malloc(sizeof(struct node_t));
+    if (p==NULL) {
+        return NULL;
+    }
+    (*p).value = node.value;
+    (*p).left = node.left;
+    (*p).right = node.right;
+    return p;
 }
 
 void destroyTree(node_t * node) {
