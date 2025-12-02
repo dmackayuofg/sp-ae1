@@ -32,7 +32,34 @@ node_t * createTree(int firstElem) {
 }
 
 void destroyTree(node_t * node) {
-
+    if (node == NULL) {
+        return;
+    }
+    while (node) {
+        printf("start of while: %d\n", node->value);
+        node_t * node_left = node->left;
+        node_t * node_right = node->right;
+        if (node_right == NULL | node_left == NULL) {
+            printf("inside if: %d\n", node->value);
+            free(node);
+            node = NULL;
+            return;
+        }
+        if (node_right != NULL) {
+            destroyTree(node_right);
+            node->right = NULL;
+        }
+        else if (node_left != NULL) {
+            destroyTree(node_left);
+            node->left = NULL;
+        }
+        else {
+            destroyTree(node_left);
+            node->left = NULL;
+            destroyTree(node_right);
+            node->right = NULL;
+        }
+    }
 }
 
 void insert(node_t * node, int elem) {
@@ -63,7 +90,6 @@ void delete(node_t * node, int elem) {
 
 int main() {
     node_t * head_pointer = createTree(5);
-    printf("%d\n", (*head_pointer).value);
     insert(head_pointer, 3);
     insert(head_pointer, 4);
     insert(head_pointer, 2);
@@ -71,6 +97,5 @@ int main() {
     insert(head_pointer, 7);
     insert(head_pointer, 8);
     insert(head_pointer, 6);
-    node_t * r_child = head_pointer->right;
-    printf("%d\n", r_child->right->value);
+    destroyTree(head_pointer);
 }
