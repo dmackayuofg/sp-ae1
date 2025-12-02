@@ -14,6 +14,8 @@ node_t * search(node_t * node, int toFind) {
     else {
         return search(node.right, toFind);
     }
+
+    // do as iterative?
 }
 
 node_t * createTree(int firstElem) {
@@ -33,7 +35,25 @@ void destroyTree(node_t * node) {
 }
 
 void insert(node_t * node, int elem) {
-
+    parent_node = NULL;
+    while (node != NULL) {
+        parent_node = node;
+        if elem < node.value {
+            node = node.left;
+        }
+        else {
+            node = node.right;
+        }
+    }
+    if (parent_node == NULL) {
+        createTree(elem);
+    }
+    else if (elem < parent_node.value) {
+        parent_node.left = createTree(elem);
+    }
+    else (elem > parent_node.value) {
+        parent_node.right = createTree(elem);
+    }
 }
 
 void delete(node_t * node, int elem) {
