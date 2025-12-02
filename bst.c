@@ -5,7 +5,15 @@ struct node_t{
 };
 
 node_t * search(node_t * node, int toFind) {
-
+    if (node==NULL | toFind==node.value) {
+        return node;
+    }
+    if toFind < node.value {
+        return search(node.left, toFind);
+    }
+    else {
+        return search(node.right, toFind);
+    }
 }
 
 node_t * createTree(int firstElem) {
